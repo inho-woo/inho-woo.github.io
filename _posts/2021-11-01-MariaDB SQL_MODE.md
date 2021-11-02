@@ -8,7 +8,7 @@ tags:
 - MariaDB
 - RDBMS
 categories:
-- Jekyll is awesome
+- SQL_MODE
 twitter_text: ''
 ---
 
