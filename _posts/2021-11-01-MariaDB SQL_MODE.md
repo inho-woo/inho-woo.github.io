@@ -8,11 +8,11 @@ tags:
 - MariaDB
 - RDBMS
 categories:
-- SQL_MODE
+- MariaDB
 twitter_text: ''
 ---
 
-## SQL_MODE ? ##  
+## SQL_MODE ?
 
 __저장할 데이터에 대한 제약조건의 허용범위를 지정할수 있게 해준다.__  
 
