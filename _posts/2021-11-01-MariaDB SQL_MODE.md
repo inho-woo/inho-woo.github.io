@@ -17,9 +17,13 @@ Mairadb 10.1.6 버전 포함 이하버전은 sql_mode 가 없다.
 하지만, 그 이후 버전부터는 sql_mode가  
 default setting 되어있기때문에 간혹가다가 수정이 필요할수있다.
 
+{% highlight sql %}  
+
 변경 쿼리
 
 __SET  @@sql_mode = '변경할 모드';__
+
+{% endhighlight %}  
 
 root 계정으로 SET을 실행하면 서버를 껐다 켜도 sql_mode는 변경한 값이 유지가 되지만
 
