@@ -23,7 +23,6 @@ default setting 되어있기때문에 간혹가다가 수정이 필요할수있�
 {% highlight sql %}  
 
 변경 쿼리  
-
 SET  @@sql_mode = '변경할 모드';  
 
 {% endhighlight %}  
