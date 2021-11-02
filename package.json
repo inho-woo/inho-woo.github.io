@@ -1,7 +1,7 @@
 {
-  "name": "willjekylltemplate",
+  "name": "inho's Gitblog",
   "version": "1.0.0",
-  "description": "My jekyll blog template.",
+  "description": "inho's Gitblog",
   "main": "gulpfile.js",
   "scripts": {
     "test": "test"
@@ -15,8 +15,8 @@
     "jekyll",
     "js"
   ],
-  "author": "Willian Justen de Vasconcellos",
-  "license": "MIT",
+  "author": "inho",
+  "license": "",
   "devDependencies": {
     "autoprefixer-stylus": "^0.4.0",
     "browser-sync": "^1.9.0",
