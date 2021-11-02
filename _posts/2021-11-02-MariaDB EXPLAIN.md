@@ -31,9 +31,7 @@ __explain__ 을 이용해 쿼리 게획을 보는 방법은 간단하다.
 EXPLAIN '쿼리문';  
 {% endhighlight %}  
 
-<img itemprop="image" class="img" src="/assets/img/explain.jpg" alt="inhow">  
-
-
+![explain](https://user-images.githubusercontent.com/58337935/139808616-c1bd2233-dafc-4688-92ed-6a34118bab90.jpg)
 
 __EXPLAIN__ 을 실행하면 위와 같은 결과가 출력된다. JOIN이나 서브 쿼리가 포함되어 여러 단계의 처리가 필요한 경우, 각 단계별로 실행 계획을 보여준다.
 
