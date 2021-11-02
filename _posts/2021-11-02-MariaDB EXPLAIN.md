@@ -6,7 +6,7 @@ image: '/assets/img/'
 description: 'MariaDB EXPLAIN 설명 및 사용방법'
 tags:
 - MariaDB 
-- explain
+- EXPLAIN
 - RDBMS 
 categories:
 - MariaDB

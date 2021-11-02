@@ -6,6 +6,7 @@ image: '/assets/img/'
 description: 'SQL_MODE 설명 및 사용방법'
 tags:
 - MariaDB
+- SQL_MODE
 - RDBMS
 categories:
 - MariaDB
