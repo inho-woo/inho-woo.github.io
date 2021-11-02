@@ -12,6 +12,10 @@ categories:
 twitter_text: ''
 ---
 
+## SQL_MODE ? ##  
+
+__저장할 데이터에 대한 제약조건의 허용범위를 지정할수 있게 해준다.__  
+
 Mairadb 10.1.6 버전 포함 이하버전은 sql_mode 가 없다.
 
 하지만, 그 이후 버전부터는 sql_mode가  
