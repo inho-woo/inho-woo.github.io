@@ -6,7 +6,7 @@ image: '/assets/img/series.png'
 description: "Take a look at my series about lorem ipsum..."
 ---
 
-{% for tag in site.description %}
+{% for tag in site.categories %}
   <span class="tag-title" id="{{ tag[0] | slugify }}">{{ tag[0] | capitalize }}</span>
   <ul class="post-list">
     {% assign pages_list = tag[1] %}
