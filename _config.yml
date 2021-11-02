@@ -6,13 +6,13 @@ url: "https://inho-woo.github.io" # the base hostname & protocol for your site e
 
 # User settings
 username: inho Hwang
-user_description: Web
-user_title: Anon Developer
+user_description: Web Developer
+user_title: Web Developer
 email: dlsdgh1354@gmail.com
-twitter_username: lorem_ipsum
-github_username:  lorem_ipsum
-gplus_username:  lorem_ipsum
-disqus_username: lorem_ipsum
+twitter_username: 
+github_username:  inho-woo
+gplus_username:  
+disqus_username: 
 
 # Build settings
 markdown: kramdown
