@@ -1,6 +1,6 @@
 # Site settings
 title: inho-woo's Gitblog
-description:inho-woo's Gitblog
+description: inho-woo's Gitblog
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://inho-woo.github.io" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
 
