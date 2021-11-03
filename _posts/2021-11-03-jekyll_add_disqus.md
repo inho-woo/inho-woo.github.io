@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Robot_txt"
+title: "jekyll에 disqus 추가하기"
 date: 2021-11-03 13:00:35
 image: '/assets/img/'
-description: 'Robot.txt (로봇테스트)'
+description: 'jekyll에 disqus 추가하기'
 tags:
-- Robots.txt
-- crawling
+- jekyll
+- disqus
 categories:
-- crawling
+- jekyll
 twitter_text: ''
 comments: true
 ---
