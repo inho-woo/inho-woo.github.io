@@ -11,6 +11,7 @@ tags:
 categories:
 - MariaDB
 twitter_text: ''
+comments: true
 ---
 
 ## SQL_MODE ?

@@ -11,6 +11,7 @@ tags:
 categories:
 - MariaDB
 twitter_text: ''
+comments: true
 ---
 
 쿼리를 작성하여 실행을 시작하니 결과까지 1분이상이 소요가 되었다.  
