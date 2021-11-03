@@ -1,0 +1,55 @@
+I"9<h2 id="댓글기능을-만들면-좋겠는데-무얼쓰지">댓글기능을 만들면 좋겠는데 무얼쓰지?</h2>
+
+<p>블로그를 운영하는데 있어 댓글기능은 방문자들과의 소통 창구 역할을 하게 되는데<br />
+Github Pages에선 댓글기능을 지원하지 않는다.<br />
+또한, 내가 작성하고 있는 블로그는 <strong>jekyll</strong> 기반으로 <strong>정적</strong> 블로그이기 때문에<br />
+<strong>동적</strong> 기능을 사용하는 댓글 서비스를 운영하는데 있어 기능을 구현하기 막막했다.<br />
+열심히 찾아본 결과 <strong>disqus</strong> 라는 플러그인을 통해 기능을 구현할수 있다 그래서 <br />
+내 Gitblog에 적용시키기로 하였다.</p>
+
+<h3 id="step-1">step 1</h3>
+<p><strong>disqus</strong> 를 사용하기 위해선, <a href="https://blog.disqus.com/">여기</a>를 접속해 회원가입부터 진행해야한다.
+<img src="https://user-images.githubusercontent.com/58337935/140012973-d490d808-72da-4317-80c2-20df148ce043.png" alt="image" /></p>
+
+<p>다양한 방법으로 간편가입이 가능하니 가입을 한다.</p>
+
+<h3 id="step-2">step 2</h3>
+
+<p>가입을 완료하였으면</p>
+
+<p>② 모든 로봇에게 모든 문서 접근 차단</p>
+
+<hr />
+
+<h4 id="user-agent-">User-agent: *</h4>
+<h4 id="disallow-">Disallow: /</h4>
+
+<hr />
+
+<p>③ 모든 로봇에게 디렉터리 및 특정파일 접근을 차단</p>
+
+<hr />
+
+<h4 id="user-agent--1">User-agent: *</h4>
+<h4 id="disallow-directory">Disallow: /directory/</h4>
+<h4 id="disallow-directoryfilehtml">Disallow: /directory/file.html</h4>
+
+<hr />
+
+<p>④ 특정 로봇에 모든 문서 접근 차단</p>
+
+<hr />
+
+<h4 id="user-agent-bot_name">User-agent: Bot_name</h4>
+<h4 id="disallow--1">Disallow: /</h4>
+
+<hr />
+
+<p>등등 여러 크롤링 봇을 허용 및 차단 시켜주는 기능이다.</p>
+
+<p>이번에 Gitblog를 작성하면서, 우연히 알게된 정보인데<br />
+무단 크롤링을 방지하기위해 나중에 사용해야될거같다.</p>
+
+<p>[<strong>disqus</strong>] : https://blog.disqus.com</p>
+
+:ET
