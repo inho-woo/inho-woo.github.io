@@ -44,8 +44,7 @@ exclude: ['package.json', 'src', 'node_modules']
 
 # Analytics
 analytics:
-  provider               : "google-gtag" 
-                          # false (default), "google", "google-universal", "google-gtag", "custom"
+  provider: google
+  ...
   google:
-    tracking_id          : "G-DMJ07P1476"
-    anonymize_ip         : # true, false (default)
+    tracking_id : G-DMJ07P1476
