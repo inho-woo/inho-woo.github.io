@@ -45,6 +45,6 @@ exclude: ['package.json', 'src', 'node_modules']
 # Analytics
 analytics:
   provider: google
-  ...
+  
   google:
     tracking_id : G-DMJ07P1476
