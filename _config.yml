@@ -20,7 +20,6 @@ highlighter: rouge
 permalink: /:title/
 future: true
 
-
 # html minify
 compress_html:
   clippings: all

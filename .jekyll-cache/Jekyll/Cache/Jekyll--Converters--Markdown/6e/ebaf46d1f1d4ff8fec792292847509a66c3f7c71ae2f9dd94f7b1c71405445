@@ -1,0 +1,143 @@
+I"='<p>이번 사내 프로젝트에 C#기반인 MES 프로그램을 JAVA 로 Conversion 하는 프로젝트를 진행하게되었다.
+Back-end 파트를 어떤 프레임워크로 할지 회의를 진행한 결과, FastAPI 를 사용해 Back-end 를 구축하게 되었다.
+Spring 기반으로만 Back-end를 구축한 경험이 있던 나는 이번기회에 FastAPI 를 접하면서 경험을 쌓게 되었다.
+FastAPI 공식홈페이지에는 자세히 설명이 되어있지만, Spring 에 비해선 아직 정보가 턱없이 부족해
+이번기회에 정리하면서 하나씩 글을 작성하기로 했다.</p>
+
+<h3 id="fastapi-">FastAPI ??</h3>
+<p><img src="https://user-images.githubusercontent.com/58337935/140669191-7c13f093-b964-41b0-bec5-bbeb80b24fe4.jpg" alt="fastAPI" /></p>
+
+<p>FastAPI는 Python3.6 이상의 버전에서 API를 빌드하기 위한 Web framework로,<br />
+이름과 같이 <strong>빠른속도</strong> 가 특징이다.<br />
+또한 쉽게 사용할 수 있도록 설계되어 조금만 공부하면 간단하게 코드작성이 가능하다.</p>
+
+<h3 id="step-1">Step 1</h3>
+
+<p>우선 Python 3.6 이상을 설치를 해야한다.   <a href="https://www.python.org/downloads/">Python설치</a><br />
+그다음, Pycharm을 설치한다. 커뮤니티버전으로해도 충분하다. <a href="https://www.jetbrains.com/ko-kr/pycharm/download/#section=windows">Pycharm 설치</a></p>
+
+<h3 id="step-2">Step 2</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/140671157-595b0325-55c2-4105-98c0-b4b10454e8cd.png" alt="image" /></p>
+
+<p>Pycharm을 설치한 후, 프로젝트를 생성하면 기본적응로 main.py가 생성된다.
+FastAPI를 사용하기 위해선 우선 설치가 필요하다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">fastapi</span>
+<span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">uvicorn</span></code></pre></figure>
+
+<p><strong>uvicorn</strong> 까지 설치한 이유는 uvloops, httptools 를 사용하는 초고속 <a href="https://ko.wikipedia.org/wiki/%EC%9B%B9_%EC%84%9C%EB%B2%84_%EA%B2%8C%EC%9D%B4%ED%8A%B8%EC%9B%A8%EC%9D%B4_%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4">ASGI</a> 서버로<br />
+ 간단한 Web Application 을 빌드하는 도구를 제공하기때문에 uvicorn으로 설치를 했다.</p>
+
+<h3 id="step-3">Step 3</h3>
+
+<p>우선 FastAPI를 사용하기 위해선 import부터 진행한다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span></code></pre></figure>
+
+<p>그다음, FastAPI 인스턴스르 생성한다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">app</span><span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>  
+<span class="k">async</span> <span class="n">read_root</span><span class="p">():</span>  
+    <span class="k">return</span> <span class="p">{</span><span class="s">"Hello"</span><span class="p">:</span> <span class="s">"World"</span><span class="p">}</span>  </code></pre></figure>
+
+<h3 id="step-4">Step 4</h3>
+
+<p>여기서 get은 웹에 대한 공부를 했다면 눈치를 챘을것이다.</p>
+
+<p>FastAPI에서 사용하는 HTTP 메소드를 간략히 정리하였다.</p>
+
+<ul>
+  <li>POST: 데이터를 생성.</li>
+  <li>GET: 데이터를 읽기.</li>
+  <li>PUT: 데이터를 업데이트.</li>
+  <li>DELETE: 데이터를 삭제.</li>
+</ul>
+
+<p>따라서 @app.get(“/”) 은 아래 함수가 다음으로 이동을 요청했다는걸 알려준다.</p>
+
+<p>@app.get(“/”) 밑에 있는 <strong>async</strong> 는 Python 함수로써,<br />
+get을 통해 URL “/” 에 대한 요청을 받을때마다 FastAPI를 호출한다.</p>
+
+<p>꼭 <strong>async</strong> 를 사용할 필요는 없다.</p>
+
+<p><strong>def</strong> 즉, 일반함수로도 정의를 할수 있다.</p>
+
+<h3 id="step-5">Step 5</h3>
+
+<p>이제 실행을 해볼차례이다.</p>
+
+<p>터미널창에 이렇게 입력한다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">-</span><span class="n">uvicorn</span> <span class="n">main</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="nb">reload</span></code></pre></figure>
+
+<p>입력을 하게 되면
+<img src="https://user-images.githubusercontent.com/58337935/140675007-ae12a457-1640-4c1c-ab87-256ca555ca89.png" alt="image" /></p>
+
+<p>다음과 같이 실행이 된다. Port 설정을 따로 하지 않았다면</p>
+
+<p>localhost:8000 으로 실행이 된다.</p>
+
+<h3 id="step-2---1">Step 2 - 1</h3>
+<p><strong>disqus</strong> 설정까지 완료했으니, jekyll project에 적용을 해야한다.
+각 테마에 따라 다르지만, _config.yml에 적용한다.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  
+ comments: disqus  
+ </code></pre></figure>
+
+<p>jekyll project에 <strong>disqus.html</strong> 이 없다면 _include 에 생성하여<br />
+다음과 같이 적용한다.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"disqus_thread"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="cm">/**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */</span>
+    
+    <span class="kd">var</span> <span class="nx">disqus_config</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="nx">PAGE_URL</span><span class="p">;</span>   <span class="c1">// Replace PAGE_URL with your page's canonical URL variable</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">identifier</span> <span class="o">=</span> <span class="nx">PAGE_IDENTIFIER</span><span class="p">;</span>               <span class="c1">// Replace PAGE_IDENTIFIER with your page's unique identifier variable</span>
+    <span class="p">};</span>
+    
+    <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="c1">// DON'T EDIT BELOW THIS LINE</span>
+        <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nb">document</span><span class="p">,</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">script</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">my github page/embed.js</span><span class="dl">'</span><span class="p">;</span>
+        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">data-timestamp</span><span class="dl">'</span><span class="p">,</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
+        <span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">head</span> <span class="o">||</span> <span class="nx">d</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+    <span class="p">})();</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;noscript&gt;</span>Please enable JavaScript to view the <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://disqus.com/?ref_noscript"</span><span class="nt">&gt;</span>comments powered
+        by Disqus.<span class="nt">&lt;/a&gt;&lt;/noscript&gt;</span>
+
+ </code></pre></figure>
+
+<p>s.src에 <strong>github page link</strong> 를 설정해주고 저장하면 된다.</p>
+
+<h3 id="step-2---2">Step 2 - 2</h3>
+
+<p>각 페이지에서 사용여부를 선택해 disqus를 사용하려먼<br />
+.md 파일 상단부분에 <strong>comments: true or false</strong> 를 설정해주면 된다.</p>
+
+<p>모든 .md 파일에 적용을 하려면 post의 footer를 담당하면 html 파일에<br />
+아래의 코드를 추가시켜준다.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"post-disqus"</span> <span class="na">class = </span><span class="s">"container"</span><span class="nt">&gt;</span>
+     include disqus.html 
+<span class="nt">&lt;/div&gt;</span>  
+ </code></pre></figure>
+
+<p>적용뒤, 실행해보면 .md 파일에 disqus가 생긴걸 볼수 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/140027025-7c983060-7134-4d77-b957-0fb6a472f7e3.jpg" alt="캡처 7" /></p>
+
+<p>댓글을 달면</p>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/140027167-9e2f2d9f-cfe0-421f-83d5-76fa4937e444.jpg" alt="캡처 8" /></p>
+
+<p>정상작동하는것을 확인할 수 있다.</p>
+:ET

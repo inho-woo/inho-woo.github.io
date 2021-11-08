@@ -1,0 +1,101 @@
+I"
+<p>이번 사내 프로젝트에 C#기반인 MES 프로그램을 JAVA 로 Conversion 하는 프로젝트를 진행하게되었다.
+Back-end 파트를 어떤 프레임워크로 할지 회의를 진행한 결과, FastAPI 를 사용해 Back-end 를 구축하게 되었다.
+Spring 기반으로만 Back-end를 구축한 경험이 있던 나는 이번기회에 FastAPI 를 접하면서 경험을 쌓게 되었다.
+FastAPI 공식홈페이지에는 자세히 설명이 되어있지만, Spring 에 비해선 아직 정보가 턱없이 부족해
+이번기회에 정리하면서 하나씩 글을 작성하기로 했다.</p>
+
+<h3 id="fastapi-">FastAPI ??</h3>
+<p><img src="https://user-images.githubusercontent.com/58337935/140669191-7c13f093-b964-41b0-bec5-bbeb80b24fe4.jpg" alt="fastAPI" /></p>
+
+<p>FastAPI는 Python3.6 이상의 버전에서 API를 빌드하기 위한 Web framework로,<br />
+이름과 같이 <strong>빠른속도</strong> 가 특징이다.<br />
+또한 쉽게 사용할 수 있도록 설계되어 조금만 공부하면 간단하게 코드작성이 가능하다.</p>
+
+<h3 id="step-1">Step 1</h3>
+
+<p>우선 Python 3.6 이상을 설치를 해야한다.   <a href="https://www.python.org/downloads/">Python설치</a><br />
+그다음, Pycharm을 설치한다. 커뮤니티버전으로해도 충분하다. <a href="https://www.jetbrains.com/ko-kr/pycharm/download/#section=windows">Pycharm 설치</a></p>
+
+<h3 id="step-2">Step 2</h3>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/140671157-595b0325-55c2-4105-98c0-b4b10454e8cd.png" alt="image" /></p>
+
+<p>Pycharm을 설치한 후, 프로젝트를 생성하면 기본적응로 main.py가 생성된다.
+FastAPI를 사용하기 위해선 우선 설치가 필요하다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">fastapi</span>
+<span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">uvicorn</span></code></pre></figure>
+
+<p><strong>uvicorn</strong> 까지 설치한 이유는 uvloops, httptools 를 사용하는 초고속 <a href="https://ko.wikipedia.org/wiki/%EC%9B%B9_%EC%84%9C%EB%B2%84_%EA%B2%8C%EC%9D%B4%ED%8A%B8%EC%9B%A8%EC%9D%B4_%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4">ASGI</a> 서버로<br />
+ 간단한 Web Application 을 빌드하는 도구를 제공하기때문에 uvicorn으로 설치를 했다.</p>
+
+<h3 id="step-3">Step 3</h3>
+
+<p>우선 FastAPI를 사용하기 위해선 import부터 진행한다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span></code></pre></figure>
+
+<p>그다음, FastAPI 인스턴스르 생성한다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">app</span><span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>  
+<span class="k">async</span> <span class="n">read_root</span><span class="p">():</span>  
+    <span class="k">return</span> <span class="p">{</span><span class="s">"Hello"</span><span class="p">:</span> <span class="s">"World"</span><span class="p">}</span>  </code></pre></figure>
+
+<h3 id="step-4">Step 4</h3>
+
+<p>여기서 get은 웹에 대한 공부를 했다면 눈치를 챘을것이다.</p>
+
+<p>FastAPI에서 사용하는 HTTP 메소드를 간략히 정리하였다.</p>
+
+<ul>
+  <li>POST: 데이터를 생성.</li>
+  <li>GET: 데이터를 읽기.</li>
+  <li>PUT: 데이터를 업데이트.</li>
+  <li>DELETE: 데이터를 삭제.</li>
+</ul>
+
+<p>따라서 @app.get(“/”) 은 아래 함수가 다음으로 이동을 요청했다는걸 알려준다.</p>
+
+<p>@app.get(“/”) 밑에 있는 <strong>async</strong> 는 Python 함수로써,<br />
+get을 통해 URL “/” 에 대한 요청을 받을때마다 FastAPI를 호출한다.</p>
+
+<p>꼭 <strong>async</strong> 를 사용할 필요는 없다.</p>
+
+<p><strong>def</strong> 즉, 일반함수로도 정의를 할수 있다.</p>
+
+<h3 id="step-5">Step 5</h3>
+
+<p>이제 실행을 해볼차례이다.</p>
+
+<p>터미널창에 이렇게 입력한다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">-</span><span class="n">uvicorn</span> <span class="n">main</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="nb">reload</span></code></pre></figure>
+
+<p>입력을 하게 되면
+<img src="https://user-images.githubusercontent.com/58337935/140675007-ae12a457-1640-4c1c-ab87-256ca555ca89.png" alt="image" /></p>
+
+<p>다음과 같이 실행이 된다. Port 설정을 따로 하지 않았다면</p>
+
+<p><strong>localhost:8000</strong> 으로 실행이 된다.</p>
+
+<h3 id="step-6">Step 6</h3>
+
+<p>FastAPI는 자동으로 문서를 생성해준다. (이건 정말 좋은거 같다..)</p>
+
+<p>문서를 보는방벙은 간단하다 <strong>localhost:8000/docs</strong> 를 입력하면</p>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/140675366-3d52280f-a6a3-4ea2-8130-976797b23370.png" alt="image" /></p>
+
+<p>다음과 같이 보여지게 되는데, 복잡한 API가 아니라면<br />
+충분히 테스트가 가능하다.</p>
+
+<p>또한 <strong>localhost:8000/redoc</strong> 도 가능해 다음과 같이 확인할 수 있다.
+<img src="https://user-images.githubusercontent.com/58337935/140675520-1ae7df46-8426-4158-8ef9-f2e967eeff17.png" alt="image" /></p>
+
+<p>우선 간단하게, FastAPI 설치 및 실행을 작성해보았다.</p>
+
+<p>다음글에서 보다 자세하게 정리해야겠다.</p>
+:ET

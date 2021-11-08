@@ -1,0 +1,30 @@
+I"<
+<p>저번글에선 FastAPI의 개념과 전반적인 사용법에 대해 작성하였다.</p>
+
+<p>이번엔 Pydantic 에 대해 정리하였다.</p>
+
+<h3 id="pydantic">Pydantic</h3>
+
+<p>Pydantic은 쉽게 말해 Parsing을 도와주는 기능을한다. 예를 들어서 설명하면,</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="n">a</span> <span class="p">:</span> <span class="nb">str</span>
+<span class="n">b</span> <span class="p">:</span> <span class="nb">float</span>
+<span class="n">c</span> <span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">Model</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s">'1.234'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1.234</span><span class="p">).</span><span class="nb">dict</span><span class="p">())</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s">'a'</span><span class="p">:</span> <span class="s">'1234'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span><span class="mf">1.234</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">Model</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s">'python'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1.234</span><span class="p">).</span><span class="nb">dict</span><span class="p">())</span>
+<span class="s">'''
+pydantic.error_wrappers.ValidationError: 1 validation error for Model
+b
+  value is not a valid float (type=type_error.float)
+
+'''</span></code></pre></figure>
+
+<p>위와 같이, b의 값이 <strong>str</strong> 로 들어와도 <strong>float</strong> 로 <strong>Parsing</strong> 해준다는것인데<br />
+만약 <strong>Parsing</strong> 이 안되는 데이터 형식이면  <strong>Validation error</strong> 가 발생한다.</p>
+:ET
