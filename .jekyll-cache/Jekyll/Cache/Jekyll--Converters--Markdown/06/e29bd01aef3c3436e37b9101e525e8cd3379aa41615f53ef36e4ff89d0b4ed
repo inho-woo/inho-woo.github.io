@@ -1,0 +1,171 @@
+I"`F<p>회사일도 바쁘고 여러가지 일을 하다보니 한달이라는 시간동안 블로그 관리를 못했다. 
+일하면서 공부하는게 이렇게 어려운건줄은 몰랐다.
+이번엔 그동안 Node.js 를 공부하면서 어떻게 진행했는지 작성해보려고 한다.
+fastAPI는 후에 기록을 남기려고 한다.. (공부를 좀더..)
+우선 Node.js를 이용해 정말 간단한 MySQL  CRUD를 진행했다.</p>
+
+<h3 id="nodejs-는-무엇인가">Node.js 는 무엇인가</h3>
+<p>Node.js 는 크롬V8 엔진에 비동기 이벤트 처리 라이브러리를 결합한 플랫폼이다.</p>
+
+<p>가장 핵심적인건 <strong>JavaScript</strong> 로 백엔드까지 작성이 가능하다는 것이다.</p>
+
+<p>또한 , <strong>npm</strong> 이라는 강력한 패키지관리자를 통해 모듈설치가 매우 간편하다.</p>
+
+<p>이처럼 매우 간편하고 강력하기 때문에 점점 점유율을 높여나가고 있다.</p>
+
+<p>Node.js 를 설치후 node -v 를 입력했을때, 버전이 아래와 같이 나오면 정상적으로 설치가 된것이다.</p>
+
+<p><img width="313" alt="스크린샷 2021-12-11 오후 1 54 23" src="https://user-images.githubusercontent.com/58337935/145664350-5ee8db80-2eb2-4d11-a549-15a8f2d655b4.png" /></p>
+
+<p>설치가 완료 되었으면 이번에 필요한 모듈들을 설치한다.</p>
+<ol>
+  <li>npm install express</li>
+  <li>npm install mysql</li>
+  <li>npm install ejs</li>
+  <li>npm install fs</li>
+  <li>npm install body-parser</li>
+</ol>
+
+<p>이렇게 모듈들을 설치후 본격적으로 소스를 작성해보자.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">ejs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">ejs</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">mysql</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mysql</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">body-parser</span><span class="dl">'</span><span class="p">)</span></code></pre></figure>
+
+<p><strong>const</strong> 는 JavaScript를 공부했던분들이라면 많이 보았을꺼다.</p>
+
+<p>위에서도 설명했듯이 Node.js는 JavaScript를 기반으로 만들어졌기때문에</p>
+
+<p>모듈을 설치후, 선언을 해주기위해 <strong>const</strong> 를 이용해 선언해준다.</p>
+
+<p>물론, <strong>var</strong> , <strong>let</strong> 도 있지만, 이번에 만들어본 프로젝트는</p>
+
+<p>간단하게 작성한거이기 때문에 <strong>const</strong> 로 통일해서 진행하였다.</p>
+
+<p>모듈들을 선언해준뒤, <strong>const app = express()</strong> 를 선언해 express에서 서버일을 진행할수 있도록 한다.</p>
+
+<p>다음, DB를 연결해주기 위해 Connection을 선언해준다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">dbcon</span> <span class="o">=</span> <span class="nx">mysql</span><span class="p">.</span><span class="nx">createConnection</span><span class="p">({</span>
+    <span class="na">host</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">user.host</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">user</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">user.id</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">password</span><span class="p">:</span><span class="dl">'</span><span class="s1">user.password</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">database</span><span class="p">:</span><span class="dl">'</span><span class="s1">user.database</span><span class="dl">'</span>
+<span class="p">})</span></code></pre></figure>
+
+<p>각 항목에 본인이 설정한 Host(로컬인결우 localhost), 계정정보를 입력한다.</p>
+
+<p>다음으로 bodyParser를 설정해준다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span>
+    <span class="na">extended</span><span class="p">:</span><span class="kc">false</span>
+<span class="p">}))</span></code></pre></figure>
+
+<p>bodyParser는 post로 요청된 body를 쉽게 추출할 수 있는 모듈로서,</p>
+
+<p>현재 프로젝트에선 <strong>bodyParser.unlencoded</strong> 로 선언한 이유는</p>
+
+<p>Context_Type(jQuery,Ajax의 기본타입) 값을 처리하기위해서 선언했다.</p>
+
+<p><strong>bodyParser.unlencoded</strong>  말고도 <strong>bodyParser.json</strong> , <strong>bodyParser.text</strong> 방법도 있다.</p>
+
+<p>모듈에대한 정리는 따로 하도록 하겠다.</p>
+
+<p>다음으로 서버 Port를 설정한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server Start : port 3000</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span></code></pre></figure>
+
+<p><strong>app.listen</strong> 으로 3000번 포트를 바라보게 한다.</p>
+
+<p>Console.log를 통해서 서버가 잘 연결되었는지 확인하였다.</p>
+
+<p>다음으로 app에 get, post를 통해서 페이지 이동및 데이터 처리를 진행했다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">list.ejs</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
+        <span class="nx">dbcon</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">'</span><span class="s1">select * from test</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+                <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+                <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">ejs</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="na">data</span> <span class="p">:</span> <span class="nx">results</span>
+                <span class="p">}))</span> 
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">})</span>
+<span class="p">})</span></code></pre></figure>
+
+<p><strong>get</strong> 방식으로 list.ejs 파일을 가져온뒤, 쿼리문을 통해 테이블 데이터를 조회한다. 
+여기서 ejs는 간단하게 얘기하면 JavaScript가 내장된 HTML 파일이다.
+HTML 문법에 <strong>&lt;% %&gt;</strong> 식으로 사용해 데이터를 처리할수 있다.</p>
+
+<p><img width="1728" alt="스크린샷 2021-12-11 오후 2 54 36" src="https://user-images.githubusercontent.com/58337935/145665924-307b9abe-f021-4f35-9bb5-4eb59810c9bb.png" /></p>
+
+<p>node index.js를 입력해 서버를 실행시시면 DB 데이터가 조회된다.</p>
+
+<p>조회까지 성공적으로 작성되었다면 , 추가,수정,삭제처리는 어렵지 않다.</p>
+
+<p>다음으로 데이터 삭제 처리이다.</p>
+
+<p>마찬가지로 삭제도 <strong>get</strong> 으로 진행한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/delete/:id</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">dbcon</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">'</span><span class="s1">delete from test where id=?</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">],</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">)</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">delete success</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span></code></pre></figure>
+
+<p><strong>req.params.id</strong> 값을 가져와 쿼리 WHERE문의 ? 을 채워준다.</p>
+
+<p>쿼리문이 성공적으로 실행되었으면 redirect로 원래화면으로 돌아간다.</p>
+
+<p><img width="1728" alt="스크린샷 2021-12-11 오후 3 02 22" src="https://user-images.githubusercontent.com/58337935/145666111-9960df31-2a6d-40b4-b000-d333cbdb099b.png" /></p>
+
+<p>데이터 하나가 삭제된것을 확인할 수 있다.</p>
+
+<p>추가 , 수정은 값을 받아와야되기 때문에 __post__도 작성해줘야한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/insert</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">insert.html</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/insert</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span>
+
+    <span class="nx">dbcon</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">'</span><span class="s1">insert into test(id, pwd) values(?,?);</span><span class="dl">'</span><span class="p">,[</span>
+        <span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+        <span class="nx">body</span><span class="p">.</span><span class="nx">pwd</span>
+    <span class="p">],</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/edit/:id</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">edit.ejs</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">dbcon</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">'</span><span class="s1">select * from test where id = ?</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">ejs</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span>
+          <span class="na">data</span><span class="p">:</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">}))</span>
+      <span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/edit/:id</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span>
+
+    <span class="nx">dbcon</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">'</span><span class="s1">update test set pwd=? where id=? </span><span class="dl">'</span><span class="p">,[</span><span class="nx">body</span><span class="p">.</span><span class="nx">pwd</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">],</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="p">})</span></code></pre></figure>
+
+:ET

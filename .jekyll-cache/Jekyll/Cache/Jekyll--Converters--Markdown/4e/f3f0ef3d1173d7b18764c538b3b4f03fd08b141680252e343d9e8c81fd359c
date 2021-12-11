@@ -1,0 +1,73 @@
+I"�<p>회사일도 바쁘고 여러가지 일을 하다보니 한달이라는 시간동안 블로그 관리를 못했다. 
+일하면서 공부하는게 이렇게 어려운건줄은 몰랐다.
+이번엔 그동안 Node.js 를 공부하면서 어떻게 진행했는지 작성해보려고 한다.</p>
+
+<h3 id="nodejs-는-무엇인가">Node.js 는 무엇인가</h3>
+<p>Node.js 는 크롬V8 엔진에 비동기 이벤트 처리 라이브러리를 결합한 플랫폼이다.</p>
+
+<p>가장 핵심적인건 JavaScript 로 백엔드까지 작성이 가능하다는 것이다.</p>
+
+<p>또한 , npm 이라는 강력한 패키지관리자를 통해 모듈설치가 매우 간편하다.</p>
+
+<p>이처럼 매우 간편하고 강력하기 때문에 점점 점유율을 높여나가고 있다.</p>
+
+<p>Node.js 를 설치후 node -v 를 입력했을때, 버전이 아래와 같이 나오면 정상적으로 설치가 된것이다.</p>
+
+<p><img width="313" alt="스크린샷 2021-12-11 오후 1 54 23" src="https://user-images.githubusercontent.com/58337935/145664350-5ee8db80-2eb2-4d11-a549-15a8f2d655b4.png" /></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="k">class</span> <span class="nc">ModelName</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">inho</span><span class="o">-</span><span class="n">woo</span> <span class="o">=</span> <span class="s">"inho-woo"</span>
+    <span class="n">saedaegal</span> <span class="o">=</span> <span class="s">"saedaegal"</span>
+    <span class="n">hwang</span> <span class="o">=</span> <span class="s">"hwang"</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/models/{model_name}"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">model_name</span><span class="p">:</span> <span class="n">ModelName</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="n">ModelName</span><span class="p">.</span><span class="n">inho</span><span class="o">-</span><span class="n">woo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">"model_name"</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span> <span class="s">"message"</span><span class="p">:</span> <span class="s">"inho-woo 공부하셈"</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">model_name</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="s">"hwang"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">"model_name"</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span> <span class="s">"message"</span><span class="p">:</span> <span class="s">"inho-woo friends"</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s">"model_name"</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span> <span class="s">"message"</span><span class="p">:</span> <span class="s">"누구세용"</span><span class="p">}</span>  </code></pre></figure>
+
+<p><strong>Enum</strong> , <strong>str</strong> 을 상속받은 ModelName 클래스를 정의했다. str클래스를 상속받아서 내부 클래스 변수들은 string형식이여야 한다는 것을 명시했다.</p>
+
+<p>docs에서 보면 가능한 값들이 이미 정의되어 있기 때문에<br />
+localhost:8080/docs 에 가서 정해진 값만 넣을수 있게 설정된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/140691744-4c7408bd-885e-40cc-8425-9dd0a004f353.png" alt="image" /></p>
+
+<p>Parameter로 Model_name 이 들어오게 되는데 Model_name에 객체로 자동 Parsing 된다는걸 알수 있다.</p>
+
+<p>Model_name 은 Enum 객체이기 때문에,  직접 String값을 얻는다.</p>
+
+<h3 id="path-parameter-containing-paths">Path Parameter Containing Paths</h3>
+
+<p>파일을 원할때 , 파일경로를 넘기는 방식이다.</p>
+
+<p>만약 API path가 /files/{file_path}이고 file_path가 home/inho_woo/file.txt 라고 해보자.</p>
+
+<p>그렇게 되면 Full path는 /files/home/inho_woo/file.txt이 된다.</p>
+
+<p>원래 OpenAPI에서는 path parameter 안에 path가 들어가는 것은 지원하지 않았다고 한다. 하지만 Fast API는 Starlette 덕분에 이 기능이 가능하다.</p>
+
+<p>해당 기능을 사용하려면 path를 아래와 같이 정의해야된다.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'files/{file_path:path}'</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+		<span class="k">return</span> <span class="p">{</span><span class="s">'file_path'</span> <span class="p">:</span> <span class="n">file_path</span><span class="p">}</span></code></pre></figure>
+
+<p>file_path가 ‘/’를 포함해도 앞에 ‘/’ 써줘야한다.<br />
+ex&gt; <strong>/files//home/inho_woo/file.txt</strong></p>
+
+:ET
