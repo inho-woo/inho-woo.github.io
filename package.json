@@ -31,6 +31,7 @@
   "dependencies": {
     "jeet": "^6.1.4",
     "kouto-swiss": "^0.11.14",
+    "pug": "^3.0.2",
     "rupture": "^0.6.1"
   }
 }

@@ -1,0 +1,12 @@
+I"><p>고객사 CS 기반 MES 화면을 생성함에 있어서 현재 회사는 프로시저를 CRUD 를 전부 나눠서 제작이 되어있었다.
+하나하나 일일이 만들지 말고 하나로 <strong>INSERT, UPDATE, DELETE</strong> 를 할수있는 방법이 있을까 하고 찾아보았는데
+마침 <strong>MERGE INTO</strong> 라는 문법을 찾게 되어 유용하게 쓰일꺼 같아 포스팅을 하게 되었다.</p>
+
+<h3 id="merge-into-">MERGE INTO ?</h3>
+<p>MERGE 문을 사용하면 변경할 테이블에 데이터가 존재하는지 체크하고, UPDATE, DELETE, INSERT를 한 번에 작업이 가능한 SQL문이다.
+보통 단일(한개의) 테이블에 UPDATE 또는 INSERT를 하는 경우 많이 사용하지만, 두개의 테이블을 비교하거나 서브 쿼리의 결과에 따라서 UPDATE, INSERT 작업이 가능하다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql">  <span class="n">MERGE</span> <span class="k">INTO</span> <span class="p">(</span><span class="err">변경할</span> <span class="err">테이블</span><span class="p">)</span>
+  <span class="k">USING</span> <span class="p">(</span><span class="err">비교할</span> <span class="err">테이블</span> <span class="o">|</span> <span class="err">서브쿼리</span><span class="p">)</span></code></pre></figure>
+
+:ET
