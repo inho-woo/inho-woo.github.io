@@ -55,7 +55,7 @@ __(SELECT 1 AS DUAL) AS B__  이부분은 dummy 서브 쿼리이기 떄문에 �
 
 부서 테이블에 부서번호 = '1'에 만족하는 값이 있으면 UPDATE, 없으면 INSERT 한다.
 
-변수를 사용해 쿼리문을 작성하면 다움과 같다.
+변수를 사용해 쿼리문을 작성하면 다음과 같다.
 
 {% highlight sql %}
 DECLARE @부서번호 INT = 1
@@ -100,7 +100,7 @@ USING (SELECT DISTINCT
 
 USING 절에 서브 쿼리를 사용한 쿼리로, 직원 테이블에 부서번호 = '1'이 존재하고, 서브 쿼리 결과와 부서 테이블을 비교하여 존재 여부에 따라서 UPDATE, INSERT 한다.
 
-다음은 테이블 을 조인했을떄의 쿼리이다.
+다음은 테이블을 조인했을떄의 쿼리이다.
 
 {% highlight sql %}
 MERGE INTO 부서 AS A
@@ -115,7 +115,7 @@ USING 부서이력 AS B
 ;
 {% endhighlight %}
 
-부서이력 테이블의 값이  부서 테이블에 존재하는 경우, 부서이력 테이블의 값으로 UPDATE, 없으면 INSERT 한다.
+부서이력 테이블의 값이 부서 테이블에 존재하는 경우, 부서이력 테이블의 값으로 UPDATE, 없으면 INSERT 한다.
 
 MERGE 문을 사용할때의 주의사항이 있다.
 
