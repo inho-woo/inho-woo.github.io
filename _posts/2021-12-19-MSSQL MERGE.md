@@ -9,7 +9,6 @@ tags:
 - MERGE
 categories:
 - MSSQL
-- MERGE
 twitter_text: ''
 comments: true
 ---
