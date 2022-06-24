@@ -1,4 +1,4 @@
-I"+<p>프로젝트 및 이사준비 때문에 블로그 관리에 소홀했다..
+I"�<p>프로젝트 및 이사준비 때문에 블로그 관리에 소홀했다..
 아직 완벽하게 해결된건 아니지만 어느정도 여유가 생겼기에 다시 블로그를 작성하려고 한다.
 Vue.js 에서 가장 핵심(?) 이라고 할수 있는 Router , Axios 에 대해 알아보자.</p>
 
@@ -9,8 +9,8 @@ Vue.js 에서 가장 핵심(?) 이라고 할수 있는 Router , Axios 에 대해
 <h3 id="사용방법">사용방법</h3>
 <p>Vue.js 에서는 VueRouter 라는 공식 라이브러리를 지원한다.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">router</span><span class="o">-</span><span class="nx">link</span> <span class="nx">to</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">URL</span><span class="dl">"</span><span class="o">&gt;</span> <span class="o">--</span> <span class="nx">페이지</span> <span class="nx">이동</span> <span class="nx">Tag</span>
-<span class="o">&lt;</span><span class="nx">router</span><span class="o">-</span><span class="nx">view</span><span class="o">&gt;</span> <span class="o">--</span> <span class="nx">페이지</span> <span class="nx">표시</span> <span class="nx">Tag</span> </code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">router</span><span class="o">-</span><span class="nx">link</span> <span class="nx">to</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">URL</span><span class="dl">"</span> <span class="o">--</span> <span class="nx">페이지</span> <span class="nx">이동</span> <span class="nx">Tag</span>
+<span class="nx">router</span><span class="o">-</span><span class="nx">view</span> <span class="o">--</span> <span class="nx">페이지</span> <span class="nx">표시</span> <span class="nx">Tag</span> </code></pre></figure>
 
 <p>다음은 Router 에 대하 예시이다.</p>
 
