@@ -1,0 +1,21 @@
+I"|<p>그동안 MES Web Conversion 프로젝트에서 Frontend 파트에 작업을 하고 있었다.
+우선적으로, Material-Ui 기반으로 작성될꺼이기 때문에 Mui 공통 컴포넌트를 제작했다.
+현재 프로젝트 세팅환경은 React, Next.js, Typescript, Mui 정도인데 React는 둘째치고 Next.js 가 변수가 되었다.
+Vue를 할때도 Nuxt.js 를 안해서 이번에 Next.js 관련해서 공부를 좀 하면 Nuxt.js도 보다 쉽게 이해할수 있을꺼 같아 Next.js 를 기록해보려고 한다.</p>
+
+<h3 id="nextjs">Next.js</h3>
+<p>Next.js 는 React로 만드는 SSR 프레임워크이면서 다음과 같은 기능을 제공한다.
+<strong>Hot reloading</strong>(개발중인 코드 자동 새로고침) 
+<strong>automatic routing</strong> ( pages 폴더에 있는 파일은 해당 파일 이름으로 라우팅)
+<strong>sever landing</strong>(client landing과는 다르게 소스보기를 하면 내부에 소스가 있다.)
+<strong>code splitting</strong>(모든 번들이 하나로 묶인것이 아닌, 각각 나뉘어 JSP 로딩시간을 개선)
+<strong>typescript</strong>(타입스크립트를 활용하기 위해 Webpack,Babel을 만질필요없이 살치후 실행만 하면 typescript 관련파일이 생성되어 typescript 코딩이 가능하다.)
+등등 여러 기능을 제공한다.</p>
+
+<p>가장 핵심적인것은 <strong>SSR</strong> 으로 React를 개발함에 있어서 편리한 기능을 제공해준다.</p>
+
+<h3 id="프로젝트-생성">프로젝트 생성</h3>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">router</span><span class="o">-</span><span class="nx">link</span> <span class="nx">to</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">URL</span><span class="dl">"</span> <span class="o">--</span> <span class="nx">페이지</span> <span class="nx">이동</span> <span class="nx">Tag</span>
+<span class="nx">router</span><span class="o">-</span><span class="nx">view</span> <span class="o">--</span> <span class="nx">페이지</span> <span class="nx">표시</span> <span class="nx">Tag</span> </code></pre></figure>
+:ET

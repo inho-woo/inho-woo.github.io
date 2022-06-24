@@ -1,0 +1,31 @@
+I"�
+<p>그동안 MES Web Conversion 프로젝트에서 Frontend 파트에 작업을 하고 있었다.
+우선적으로, Material-Ui 기반으로 작성될꺼이기 때문에 Mui 공통 컴포넌트를 제작했다.
+현재 프로젝트 세팅환경은 React, Next.js, Typescript, Mui 정도인데 React는 둘째치고 Next.js 가 변수가 되었다.
+Vue를 할때도 Nuxt.js 를 안해서 이번에 Next.js 관련해서 공부를 좀 하면 Nuxt.js도 보다 쉽게 이해할수 있을꺼 같아 Next.js 를 기록해보려고 한다.</p>
+
+<h3 id="nextjs">Next.js</h3>
+<p>Next.js 는 React로 만드는 SSR 프레임워크이면서 다음과 같은 기능을 제공한다.<br />
+<strong>Hot reloading</strong> (개발중인 코드 자동 새로고침)<br />
+<strong>automatic routing</strong> ( pages 폴더에 있는 파일은 해당 파일 이름으로 라우팅)<br />
+<strong>sever landing</strong> (client landing과는 다르게 소스보기를 하면 내부에 소스가 있다.)<br />
+<strong>code splitting</strong> (모든 번들이 하나로 묶인것이 아닌, 각각 나뉘어 JSP 로딩시간을 개선)<br />
+<strong>typescript</strong> (타입스크립트를 활용하기 위해 Webpack,Babel을 만질필요없이 살치후 실행만 하면 typescript 관련파일이 생성되어 typescript 코딩이 가능하다.)<br />
+등등 여러 기능을 제공한다.</p>
+
+<p>가장 핵심적인것은 <strong>SSR</strong> 으로 React를 개발함에 있어서 편리한 기능을 제공해준다.</p>
+
+<h3 id="프로젝트-생성">프로젝트 생성</h3>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">npx</span> <span class="nx">create</span><span class="o">-</span><span class="nx">next</span><span class="o">-</span><span class="nx">app</span> <span class="nx">my</span><span class="o">-</span><span class="nx">app</span></code></pre></figure>
+
+<p>프로젝트 생성후 <strong>npm run dev</strong> 를 터미널에 입력하면</p>
+
+<p><img src="https://user-images.githubusercontent.com/58337935/175499660-868dc2ae-bc50-45f3-ac70-96ecfc479813.png" alt="image" /></p>
+
+<p>다음과 같은 화면을 볼수 있다.</p>
+
+<p>물론, 현재 회사에서 진행하는 프로젝트 <strong>yarn</strong> 으로 진행하고 있다.<br />
+<strong>npm</strong>  으로 처음에는 시작했지만 , <strong>yarn</strong> 을 알고나니깐   왜 <strong>yarn</strong> 을 이제야 알았지 라는 생각도 들었다.
+<strong>npm vs yarn</strong> 의 비교는 추후에 정리하고 다음에는 현제 프로젝트에서 어떤 파트를 개발했는지, 진행중인 개발은 무엇인지 정리하도록 하겠다.</p>
+:ET
